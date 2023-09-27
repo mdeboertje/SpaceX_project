@@ -36,21 +36,44 @@ def zoek_specifieke_lancering(mission, api):
 
 # TODO implement main menu
 def geef_menu_weer():
-    pass
+    api = spacex_connectie.spacex_connection()
+    missies = geef_lanceringen_weer(api)
+    x = int(input("Kies uit 1, 2"))
+    is_aan = True
+    while is_aan:
+        match x:
+            case 1:
+                for missie in missies:
+                    print_missie_info(missie)
+                _continue = input("Wilt u doorgaan?: j/n").lower()
+                if _continue == 'j':
+                    geef_menu_weer()
+                else:
+                    is_aan = False
+
+            case 2:
+                waarde = input("Zoek missie : \n")
+                gevonden_missie = zoek_specifieke_lancering(waarde, api)
+
+                if gevonden_missie:
+                    print_missie_info(gevonden_missie)
+                    _continue = input("Wilt u doorgaan?: j/n").lower()
+                    if _continue == 'j':
+                        geef_menu_weer()
+                    elif _continue == 'n':
+                        False
+                else:
+                    print("Missie niet gevonden.")
+                _continue = input("Wilt u opnieuw zoeken? j/n").lower()
+                if _continue == 'j':
+                    break
+                else:
+                    is_aan = False
+            case 3:
+                pass
+
 def spacex():
-    conn = spacex_connectie.spacex_connection()
-    missies = geef_lanceringen_weer(conn)
-
-    for missie in missies:
-        print_missie_info(missie)
-
-    waarde = input("Zoek missie : \n")
-    gevonden_missie = zoek_specifieke_lancering(waarde, conn)
-
-    if gevonden_missie:
-        print_missie_info(gevonden_missie)
-    else:
-        print("Missie niet gevonden.")
+    geef_menu_weer()
 
 
 if __name__ == "__main__":
