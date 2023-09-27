@@ -1,3 +1,4 @@
+import percentages
 import spacex_connectie
 
 
@@ -34,11 +35,16 @@ def zoek_specifieke_lancering(mission, api):
             return lancering
 
 
-# TODO implement main menu
+
 def geef_menu_weer():
     api = spacex_connectie.spacex_connection()
     missies = geef_lanceringen_weer(api)
-    x = int(input("Kies uit 1, 2"))
+    x = int(input("Welkom bij SpaceX! Maak uw keuze:"
+                  "\n [1] Alle lanceringen bekekijk"
+                  "\n [2] Een specifieke lancering bekijken"
+                  "\n [3] Succes percentage berekenen"
+                  "\n [4] Applicatie afsluiten "
+                  "\n Type hier: "))
     is_aan = True
     while is_aan:
         match x:
@@ -61,7 +67,7 @@ def geef_menu_weer():
                     if _continue == 'j':
                         geef_menu_weer()
                     elif _continue == 'n':
-                        False
+                        is_aan = False
                 else:
                     print("Missie niet gevonden.")
                 _continue = input("Wilt u opnieuw zoeken? j/n").lower()
@@ -70,7 +76,16 @@ def geef_menu_weer():
                 else:
                     is_aan = False
             case 3:
-                pass
+                print(f"Success Percentage: {percentages.bereken_succes_percentage(api):.2f}%")
+                _continue = input("Wilt u doorgaan?: j/n").lower()
+                if _continue == 'j':
+                    geef_menu_weer()
+                elif _continue == 'n':
+                    is_aan = False
+            case 4:
+                print("Tot ziens!")
+                is_aan = False
+
 
 def spacex():
     geef_menu_weer()
