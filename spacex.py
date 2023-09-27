@@ -60,8 +60,8 @@ def geef_menu_weer():
                     _continue = input("Wilt u doorgaan?: j/n").lower()
                     if _continue == 'j':
                         geef_menu_weer()
-                    else:
-                        is_aan = False
+                    elif _continue == 'n':
+                        False
                 else:
                     print("Missie niet gevonden.")
                 _continue = input("Wilt u opnieuw zoeken? j/n").lower()
@@ -69,7 +69,8 @@ def geef_menu_weer():
                     break
                 else:
                     is_aan = False
-
+            case 3:
+                pass
 
 def spacex():
     geef_menu_weer()
